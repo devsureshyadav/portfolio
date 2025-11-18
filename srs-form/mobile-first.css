@@ -36,7 +36,10 @@
   overflow-x: auto;
   padding: var(--space-sm) 0;
 }
-
+#subFeaturesContainer{
+  padding:10px;
+  margin:0px;
+}
 .step-indicator {
   display: flex;
   align-items: center;
@@ -142,20 +145,22 @@
 
 /* Mobile Checkbox Groups */
 .checkbox-group {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
+  /* grid-template-columns: 1fr; */
   gap: var(--space-sm);
-  margin-top: var(--space-sm);
+  /* margin-top: var(--space-sm); */
 }
 
 .checkbox-item {
   display: flex;
   align-items: center;
-  padding: var(--space-sm);
+  /* padding: var(--space-sm); */
   background: var(--bg-primary);
   border: 1px solid var(--text-muted);
   border-radius: var(--radius-sm);
   transition: var(--transition-normal);
+ 
 }
 
 .checkbox-item:hover {
