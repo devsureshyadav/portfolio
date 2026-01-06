@@ -163,26 +163,35 @@
       <h1>Schedule a Meeting</h1>
       <p class="subtitle">Select an available time and request an appointment.</p>
 
-      <form id="appointmentForm">
+      <form id="appointmentForm" action="https://api.web3forms.com/submit" method="POST">
+
+        <!-- Web3Forms Access Key -->
+        <input type="hidden" name="access_key" value="22205293-9509-4d5c-aee4-af1c194aa033" />
+
+        <!-- Email Configuration -->
+        <input type="hidden" name="subject" value="New Appointment Request" />
+        <input type="hidden" name="from_name" value="Appointment Booking Website" />
+        <input type="hidden" name="replyto" value="email" />
+        <input type="hidden" name="to_email" value="sureshyadav.info.np@gmail.com" />
 
         <div class="field">
           <label>Full Name</label>
-          <input type="text" id="name" placeholder="Enter your name" required />
+          <input type="text" name="name" placeholder="Enter your name" required />
         </div>
 
         <div class="field">
           <label>Email</label>
-          <input type="email" id="email" placeholder="you@example.com" required />
+          <input type="email" name="email" placeholder="you@example.com" required />
         </div>
 
         <div class="field">
           <label>Phone</label>
-          <input type="tel" id="phone" placeholder="+977-XXXXXXXXX" required />
+          <input type="tel" name="phone" placeholder="+977-XXXXXXXXX" required />
         </div>
 
         <div class="field">
           <label>Available Time</label>
-          <select id="time" required>
+          <select name="time" required>
             <option value="">Select a time slot</option>
             <option>10:00 AM – 10:30 AM</option>
             <option>11:00 AM – 11:30 AM</option>
@@ -203,20 +212,13 @@
   </div>
 
   <script>
-    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+    // Optional UX: success & error handling
+    const form = document.getElementById('appointmentForm');
 
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const phone = document.getElementById('phone').value;
-      const time = document.getElementById('time').value;
-
-      const subject = encodeURIComponent('New Appointment Request');
-      const body = encodeURIComponent(
-        `New Appointment Request\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nSelected Time: ${time}`
-      );
-
-      window.location.href = `mailto:sureshyadav.info.np@gmail.com?subject=${subject}&body=${body}`;
+    form.addEventListener('submit', function () {
+      const btn = form.querySelector('button');
+      btn.innerText = 'Sending...';
+      btn.disabled = true;
     });
   </script>
 
