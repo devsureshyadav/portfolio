@@ -163,15 +163,11 @@
       <h1>Schedule a Meeting</h1>
       <p class="subtitle">Select an available time and request an appointment.</p>
 
-      <form id="appointmentForm" action="https://api.web3forms.com/submit" method="POST">
+      <form id="appointmentForm">
 
-        <!-- Web3Forms Access Key -->
         <input type="hidden" name="access_key" value="22205293-9509-4d5c-aee4-af1c194aa033" />
-
-        <!-- Email Configuration -->
         <input type="hidden" name="subject" value="New Appointment Request" />
         <input type="hidden" name="from_name" value="Appointment Booking Website" />
-        <input type="hidden" name="replyto" value="email" />
         <input type="hidden" name="to_email" value="sureshyadav.info.np@gmail.com" />
 
         <div class="field">
@@ -203,6 +199,11 @@
         <button type="submit">Request Appointment</button>
       </form>
 
+      <div id="successModal" style="display:none; margin-top:24px; text-align:center;">
+        <h3 style="margin-bottom:8px; color:#38bdf8;">Appointment Requested ✅</h3>
+        <p style="color:#94a3b8; font-size:0.9rem;">Your request has been sent successfully. I’ll get back to you soon.</p>
+      </div>
+
       <div class="info">
         sureshyadav.info.np@gmail.com<br />
         +977-9763878278
@@ -212,13 +213,39 @@
   </div>
 
   <script>
-    // Optional UX: success & error handling
     const form = document.getElementById('appointmentForm');
+    const successModal = document.getElementById('successModal');
 
-    form.addEventListener('submit', function () {
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
       const btn = form.querySelector('button');
       btn.innerText = 'Sending...';
       btn.disabled = true;
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          form.style.display = 'none';
+          successModal.style.display = 'block';
+        } else {
+          alert('Something went wrong. Please try again.');
+          btn.innerText = 'Request Appointment';
+          btn.disabled = false;
+        }
+      } catch (error) {
+        alert('Network error. Please try again.');
+        btn.innerText = 'Request Appointment';
+        btn.disabled = false;
+      }
     });
   </script>
 
